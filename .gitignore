@@ -1,0 +1,11 @@
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+backend/uploads/submissions/
+backend/uploads/diffs/
+backend/data.json
+frontend/dist/
+.env
+.env.local
+*.log
+.DS_Store
