@@ -50,6 +50,17 @@ export default function AdminPage() {
     } catch {}
   }
 
+  async function deleteGolden() {
+  if (!confirm("Delete the golden image? This cannot be undone.")) return;
+  try {
+    await adminAPI.deleteGoldenImage();
+    toast.success("Golden image deleted");
+    fetchAll();
+  } catch (err) {
+    toast.error(err.response?.data?.error || "Delete failed");
+  }
+}
+
   async function uploadGolden() {
     if (!goldenFile) return toast.error("Select an image first");
     setUploading(true);
@@ -267,7 +278,7 @@ export default function AdminPage() {
       {/* GOLDEN IMAGE TAB */}
       {activeTab === "golden" && (
         <div className="space-y-6 animate-fade-in">
-          {goldenImage && (
+          {/* {goldenImage && (
             <div className="glass-panel p-6">
               <div className="flex items-center gap-2 mb-4">
                 <CheckCircle className="w-4 h-4 text-neon" />
@@ -282,7 +293,35 @@ export default function AdminPage() {
                 Uploaded: {new Date(goldenImage.uploadedAt).toLocaleString()} · {goldenImage.originalName}
               </p>
             </div>
+          )} */}
+
+          {goldenImage && (
+            <div className="glass-panel p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-neon" />
+                  <h2 className="font-display font-bold text-white">Current Golden Image</h2>
+                </div>
+                <button
+                  onClick={deleteGolden}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-danger/10 border border-danger/30 text-danger text-sm font-mono hover:bg-danger/20 transition-all"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete Image
+                </button>
+              </div>
+              <img
+                src={`${base}${goldenImage.url}`}
+                alt="Golden"
+                className="w-full max-h-72 object-contain rounded-xl border border-border bg-surface"
+              />
+              <p className="text-xs font-mono text-slate-500 mt-3">
+                Uploaded: {new Date(goldenImage.uploadedAt).toLocaleString()} · {goldenImage.originalName}
+              </p>
+            </div>
           )}
+
+          
           <div className="glass-panel p-6">
             <h2 className="font-display font-bold text-white mb-4 flex items-center gap-2">
               <Upload className="w-4 h-4 text-accent-glow" />

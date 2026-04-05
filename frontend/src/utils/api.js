@@ -7,12 +7,19 @@ const api = axios.create({
   timeout: 60000,
 });
 
+// export const adminAPI = {
+//   uploadGoldenImage: (formData) =>
+//     api.post("/api/admin/golden-image", formData, {
+//       headers: { "Content-Type": "multipart/form-data" },
+//     }),
+//   getGoldenImage: () => api.get("/api/admin/golden-image"),
 export const adminAPI = {
   uploadGoldenImage: (formData) =>
     api.post("/api/admin/golden-image", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
   getGoldenImage: () => api.get("/api/admin/golden-image"),
+  deleteGoldenImage: () => api.delete("/api/admin/golden-image"),
   getSubmissions: () => api.get("/api/admin/submissions"),
   deleteSubmission: (id) => api.delete(`/api/admin/submissions/${id}`),
   reset: () => api.post("/api/admin/reset"),

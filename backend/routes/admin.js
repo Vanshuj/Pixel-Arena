@@ -41,6 +41,26 @@ router.post("/golden-image", upload.single("image"), (req, res) => {
   res.json({ success: true, goldenImage: data.goldenImage });
 });
 
+// Delete golden image
+router.delete("/golden-image", (req, res) => {
+  const data = readData();
+  if (!data.goldenImage) {
+    return res.status(404).json({ error: "No golden image to delete" });
+  }
+
+  // Delete the actual file from disk
+  const fs = require("fs");
+  if (fs.existsSync(data.goldenImage.path)) {
+    fs.unlinkSync(data.goldenImage.path);
+  }
+
+  // Remove from data store
+  data.goldenImage = null;
+  writeData(data);
+
+  res.json({ success: true });
+});
+
 // Get golden image info
 router.get("/golden-image", (req, res) => {
   const data = readData();
