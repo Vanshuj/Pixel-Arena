@@ -246,6 +246,7 @@ import DropZone from "../components/DropZone";
 import ScoreCircle from "../components/ScoreCircle";
 import DiffViewer from "../components/DiffViewer";
 import RoundTimer from "../components/RoundTimer";
+import ProtectedImage from "../components/ProtectedImage";
 
 function computePhase(round) {
   if (!round || !round.active) return round?.phase || "idle";
@@ -409,7 +410,7 @@ export default function SubmitPage() {
         {round && <RoundTimer round={round} onSync={fetchState} />}
       </div>
 
-      {showGolden && (
+      {/* {showGolden && (
         <div className="glass-panel p-4 mb-6 border-gold/30 bg-gold/5 animate-fade-in">
           <p className="text-xs font-mono text-gold uppercase tracking-widest mb-3">
             Study Phase — Memorize this design!
@@ -421,6 +422,29 @@ export default function SubmitPage() {
           />
           <p className="text-center text-gold/60 font-mono text-xs mt-2">
             This image hides the moment build phase starts
+          </p>
+        </div>
+      )} */}
+
+
+      {showGolden && (
+        <div className="glass-panel p-4 mb-6 border-gold/30 bg-gold/5 animate-fade-in no-print">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-xs font-mono text-gold uppercase tracking-widest">
+              👁️ Study Phase — Memorize this design!
+            </p>
+            <span className="text-xs font-mono text-danger/70 flex items-center gap-1">
+              🔒 Protected
+            </span>
+          </div>
+          <ProtectedImage
+            src={`${base}${goldenImage.url}`}
+            alt="Golden Reference"
+            className="w-full rounded-xl object-contain max-h-64 border border-gold/20"
+            teamName={teamName || "PARTICIPANT"}
+          />
+          <p className="text-center text-gold/60 font-mono text-xs mt-2">
+            Screenshot protection is active — image is watermarked
           </p>
         </div>
       )}

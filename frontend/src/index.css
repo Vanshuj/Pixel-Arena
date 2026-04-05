@@ -104,6 +104,53 @@
   }
 }
 
+
+/* Screenshot Protection */
+.protected-image {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+.protected-zone {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  position: relative;
+}
+
+.protected-zone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: not-allowed;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body::after {
+    content: "PROTECTED - Vibe Snapshot";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 60px;
+    color: rgba(255,0,0,0.3);
+    z-index: 99999;
+  }
+}
+
+
 /* Noise overlay */
 body::before {
   content: "";
