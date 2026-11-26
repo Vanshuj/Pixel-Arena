@@ -1,0 +1,5 @@
+target/
+uploads/submissions/
+uploads/diffs/
+.env
+*.log
